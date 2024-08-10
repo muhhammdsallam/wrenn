@@ -7,11 +7,10 @@ import connectToMongoDB from './db/connectToMongoDB.js';
 import messageRoutes from './routes/message.js';
 
 import userRoutes from './routes/user.js';
+dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT || 3000;
-
-dotenv.config();
 
 app.use(express.json()); // to parse incoming requests to json payloads
 app.use(cookieParser());

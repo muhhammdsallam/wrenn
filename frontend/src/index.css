@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 body{
-    background: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), url("C:\Users\msall\IdeaProjects\real-time-chat-app\frontend\public\realistic-phone-studio-social-media-concept.jpg");
+    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("C:\Users\msall\IdeaProjects\real-time-chat-app\frontend\public\glowing-space-4k-doodle-94tm2iky5gd5za7n.jpg");
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
