@@ -1,13 +1,25 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import Messages from './Messages';
 import MessageInput from './MessageInput';
 import { TiMessages } from 'react-icons/ti';
 import useConversation from '../../zustand/useConversation';
 import { useAuthContext } from '../../context/AuthContext';
+import ConversationUserInfo from './ConversationUserInfo';
 
 const MessageContainer = () => {
   const { selectedConversation, setSelectedConversation } = useConversation();
   const { authUser } = useAuthContext();
+
+  const [clickReceiverInfo, setClickReceiverInfo] = useState(false);
+
+  console.log(clickReceiverInfo);
+
+  useEffect(() => {
+    // Reset clickReceiverInfo when a new conversation is selected
+    if (selectedConversation) {
+      setClickReceiverInfo(false);
+    }
+  }, [selectedConversation]);
 
   useEffect(() => {
     // cleanup function (unmounts)
@@ -19,10 +31,17 @@ const MessageContainer = () => {
     <div className='w-screen flex flex-col'>
       {!selectedConversation ? (
         <NoChatSelected />
+      ) : clickReceiverInfo ? (
+        <ConversationUserInfo setClickReceiverInfo={setClickReceiverInfo} />
       ) : (
         <>
           {/* Header */}
-          <div className='bg-transparent px-4 py-2 mb-2'>
+          <div
+            className='bg-transparent mt-2 px-4 py-2 mb-2 cursor-pointer'
+            onClick={() => {
+              setClickReceiverInfo(true);
+            }}
+          >
             <span className='label-text text-gray-200 font-medium'>
               {selectedConversation.fullName}
             </span>

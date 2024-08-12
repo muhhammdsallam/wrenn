@@ -15,8 +15,11 @@ const Messages = () => {
 
   useEffect(() => {
     setTimeout(() => {
-      lastMessageRef.current?.scrollIntoView({ behavior: 'smooth' });
-    }, 100);
+      lastMessageRef.current?.scrollIntoView({
+        behavior: 'smooth',
+        block: 'end',
+      });
+    }, 5);
   }, [messages]); // only runs when the values in the array changes
   return (
     <div className='px-4 flex-1 overflow-auto '>
