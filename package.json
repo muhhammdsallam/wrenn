@@ -1,10 +1,12 @@
 {
-  "name": "real-time-chat-app",
+  "name": "wrenn",
   "version": "1.0.0",
   "description": "",
   "main": "server.js",
   "scripts": {
-    "server": "nodemon backend/server.js"
+    "server": "nodemon backend/server.js",
+    "start": "node backend/server.js",
+    "build": "npm install && npm install --prefix frontend && npm run build --prefix frontend"
   },
   "type": "module",
   "keywords": [],
@@ -17,7 +19,9 @@
     "express": "^4.19.2",
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.5.2",
-    "socket.io": "^4.7.5"
+    "real-time-chat-app": "file:",
+    "socket.io": "^4.7.5",
+    "wrenn": "file:"
   },
   "devDependencies": {
     "autoprefixer": "^10.4.20",
