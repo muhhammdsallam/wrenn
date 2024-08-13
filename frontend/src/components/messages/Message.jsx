@@ -12,7 +12,7 @@ const Message = ({ message }) => {
   const profilePic = fromMe
     ? authUser.profilePic
     : selectedConversation.profilePic;
-  const bubbleColor = fromMe ? 'bg-blue-500' : '';
+  const bubbleColor = fromMe ? 'bg-green-600' : '';
 
   const formattedTime = new Date(message.createdAt).toLocaleTimeString(
     'en-US',

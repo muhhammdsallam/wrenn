@@ -4,7 +4,6 @@ import { IoArrowBack } from 'react-icons/io5';
 
 const ConversationUserInfo = ({ setClickReceiverInfo }) => {
   const { selectedConversation } = useConversation();
-  const { messages } = useConversation();
   return (
     <div className='w-full h-full flex flex-col items-center justify-center relative'>
       <button
@@ -25,9 +24,6 @@ const ConversationUserInfo = ({ setClickReceiverInfo }) => {
       </p>
       <p className='text-gray-500 mt-0 text-lg font-normal'>
         @{selectedConversation.username}
-      </p>
-      <p className='text-gray-500 mt-0 text-base font-normal'>
-        {messages.length} Messages
       </p>
     </div>
   );

@@ -37,7 +37,7 @@ const MessageContainer = () => {
         <>
           {/* Header */}
           <div
-            className='bg-transparent mt-2 px-4 py-2 mb-2 cursor-pointer'
+            className='bg-transparent px-4 py-2 cursor-pointer bg-gray-900 border-b border-zinc-800'
             onClick={() => {
               setClickReceiverInfo(true);
             }}
@@ -46,6 +46,7 @@ const MessageContainer = () => {
               {selectedConversation.fullName}
             </span>
           </div>
+          {/* <div className='divider my-0 py-0' /> */}
 
           <Messages />
           <MessageInput />

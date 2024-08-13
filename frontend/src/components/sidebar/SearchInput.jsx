@@ -26,18 +26,23 @@ const SearchInput = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit} className='flex items-center gap-2'>
-      <input
-        type='text'
-        placeholder='Search'
-        className='input input-bordered rounded-3xl'
-        value={search}
-        onChange={(e) => setSearch(e.target.value)}
-      />
-      <button type='submit' className='btn btn-circle bg-sky-400 text-white'>
-        <CiSearch />
-      </button>
-    </form>
+    <div className='flex items-center'>
+      <form onSubmit={handleSubmit} className='flex items-center gap-2'>
+        <input
+          type='text'
+          placeholder='Search'
+          className='input input-bordered rounded-2xl h-9 text-sm'
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+        />
+        <button
+          type='submit'
+          className='btn btn-circle bg-green-600 text-white hover:bg-green-700'
+        >
+          <CiSearch className='h-4 w-4' />
+        </button>
+      </form>
+    </div>
   );
 };
 
