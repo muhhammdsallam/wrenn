@@ -2,6 +2,11 @@ import User from '../models/User.js';
 import bcrypt from 'bcryptjs';
 import generateTokenAndSetCookie from '../utils/generateToken.js';
 
+
+//  @desc   registers a new user into the system and return access token
+//  @route  POST /api/auth/signup
+//  @access public
+//  @body   fullName username password confirmPassword gender
 export const signup = async (req, res) => {
   try {
     const { fullName, username, password, confirmPassword, gender } = req.body;
@@ -49,6 +54,11 @@ export const signup = async (req, res) => {
   }
 };
 
+
+//  @desc   logins a user into the system and return access token and user data
+//  @route  POST /api/auth/login
+//  @access public
+//  @body   username   password
 export const login = async (req, res) => {
   try {
     const { username, password } = req.body;
@@ -74,6 +84,10 @@ export const login = async (req, res) => {
   }
 };
 
+//  @desc   logouts the user from the system and resets the cookie
+//  @route  POST /api/auth/logout
+//  @access public
+//  @body   -
 export const logout = async (req, res) => {
   try {
     res.cookie('jwt', '', { maxAge: 0 });
