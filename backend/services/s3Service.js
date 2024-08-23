@@ -1,21 +1,32 @@
-import S3 from '../instances/AWS/s3.js';
+import { PutObjectCommand, GetObjectCommand } from '@aws-sdk/client-s3';
+import { getSignedUrl } from '@aws-sdk/s3-request-presigner';
+import { S3Client } from '@aws-sdk/client-s3';
+import { fromEnv } from '@aws-sdk/credential-providers';
 
-const s3Service = {
-  uploadFile: async (bucketName, file, key) => {
-    return S3.upload({
-      Bucket: bucketName,
-      Key: key,
-      Body: file,
-    }).promise();
-  },
+const client = new S3Client({
+  credentials: fromEnv(),
+  region: 'us-east-1',
+});
 
-  signUrl: async (bucketName, key) => {
-    return S3.getSignedUrlPromise('getObject', {
-      Bucket: bucketName,
-      Key: key,
-      Expires: 60 * 5,
-    });
-  },
+export const uploadFile = async (bucketName, file, key) => {
+  const command = new PutObjectCommand({
+    Bucket: bucketName,
+    Key: key,
+    Body: file,
+  });
+
+  const response = await client.send(command);
+  return response;
 };
+export const signUrl = async (bucketName, key) => {
+  const command = new GetObjectCommand({
+    Bucket: bucketName,
+    Key: key,
+  });
 
-export default s3Service;
+  const url = await getSignedUrl(client, command, {
+    expiresIn: 60 * 5, // 5 minutes
+  });
+
+  return url;
+};

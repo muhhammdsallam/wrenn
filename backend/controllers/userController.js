@@ -1,7 +1,7 @@
 import bcrypt from 'bcryptjs/dist/bcrypt.js';
 import User from '../models/User.js';
 import { configDotenv } from 'dotenv';
-import imageS3bucketRepo from '../repositories/imageS3bucketRepo.js';
+import { signProfilePictureFile } from '../repositories/imageS3bucketRepo.js';
 
 //  @desc   Get all users from the DB to be shown to the user
 //  @route  GET /api/user
@@ -20,9 +20,7 @@ export const getUsers = async (req, res) => {
       let profilePicUrl = user.profilePic;
 
       if (profilePicUrl && !profilePicUrl.startsWith('http')) {
-        profilePicUrl = await imageS3bucketRepo.signProfilePictureFile(
-          user.profilePic
-        );
+        profilePicUrl = await signProfilePictureFile(profilePicUrl);
       }
 
       return {

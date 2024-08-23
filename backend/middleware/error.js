@@ -25,7 +25,7 @@ const errorHandler = (err, req, res, next) => {
 
   if (statusCode === 500) {
     logger.error(err.message.red);
-    errorMessage = 'Internal Server Error';
+    errorMessage = err.message;
   }
 
   const errorResponse = {

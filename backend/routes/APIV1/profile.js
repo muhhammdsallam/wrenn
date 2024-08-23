@@ -8,22 +8,24 @@ import { uploadProfilePic } from '../../controllers/profileController.js';
 import resizeImage from '../../instances/pictureResizing.js';
 import validateBody from '../../middleware/validateBody.js';
 import updateProfileSchema from '../../validations/auth/updateProfile.js';
+import asyncHandler from '../../utils/asyncHandler.js';
 
 router.put(
   '/updateProfile',
   protectRoute,
   validateBody(updateProfileSchema()),
-  updateProfile
+  asyncHandler(updateProfile)
 );
-router.route('/picture').post(
-  [
-    protectRoute,
-    // resizeImage(200, 200),
-    memoryImageUpload.single('image'),
-    filenameExists('image'),
-  ],
-  // resizeImage(200, 200)],
-  uploadProfilePic
-);
+router
+  .route('/picture')
+  .post(
+    [
+      protectRoute,
+      memoryImageUpload.single('image'),
+      filenameExists('image'),
+      resizeImage(200, 200),
+    ],
+    uploadProfilePic
+  );
 
 export default router; // only one default export per module

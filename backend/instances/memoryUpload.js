@@ -6,7 +6,7 @@ const storage = multer.memoryStorage();
 const memoryImageUpload = multer({
   storage: storage,
   limits: {
-    fileSize: 10000000, // 10MB max image size
+    fileSize: 100000000, // 100MB max image size
   },
   fileFilter(req, file, cb) {
     if (!file.originalname.match(/\.(jpg|jpeg|png)$/)) {

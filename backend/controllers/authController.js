@@ -2,6 +2,7 @@ import User from '../models/User.js';
 import bcrypt from 'bcryptjs';
 import generateTokenAndSetCookie from '../utils/generateToken.js';
 import AppError from '../utils/AppError.js';
+import { signProfilePictureFile } from '../repositories/imageS3bucketRepo.js';
 
 //  @desc   registers a new user into the system and return access token
 //  @route  POST /api/auth/signup
@@ -61,12 +62,18 @@ export const login = async (req, res, next) => {
     return next(new AppError('Invalid username or password', 400));
   }
 
+  let profilePicUrl = user.profilePic;
+
+  if (profilePicUrl && !profilePicUrl.startsWith('http')) {
+    profilePicUrl = await signProfilePictureFile(profilePicUrl);
+  }
+
   generateTokenAndSetCookie(user._id, res);
   return res.status(200).json({
     _id: user._id,
     fullName: user.fullName,
     username: user.username,
-    profilePic: user.profilePic,
+    profilePic: profilePicUrl,
   });
 };
 
