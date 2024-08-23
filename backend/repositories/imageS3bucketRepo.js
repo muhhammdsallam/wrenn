@@ -1,6 +1,6 @@
 import s3Service from '../services/s3Service.js';
 
-const bucketName = 'users-profile-pictures';
+const bucketName = 'wrenn-app';
 
 const uploadProfilePicture = async (userId, imageFile) => {
   const keyName = userId;
