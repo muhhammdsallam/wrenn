@@ -1,7 +1,10 @@
 import express from 'express';
 const router = express.Router();
 import protectRoute from '../../middleware/protectRoute.js';
-import { updateProfile } from '../../controllers/profileController.js';
+import {
+  deleteProfilePic,
+  updateProfile,
+} from '../../controllers/profileController.js';
 import memoryImageUpload from '../../instances/memoryUpload.js';
 import filenameExists from '../../middleware/filesPayloadExists.js';
 import { uploadProfilePic } from '../../controllers/profileController.js';
@@ -25,7 +28,8 @@ router
       filenameExists('image'),
       resizeImage(200, 200),
     ],
-    uploadProfilePic
+    asyncHandler(uploadProfilePic)
   );
+router.route('/picture').delete([protectRoute, asyncHandler(deleteProfilePic)]);
 
 export default router; // only one default export per module

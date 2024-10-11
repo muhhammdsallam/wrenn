@@ -9,7 +9,7 @@ import { signProfilePictureFile } from '../repositories/imageS3bucketRepo.js';
 //  @access public
 //  @body   fullName username password confirmPassword gender
 export const signup = async (req, res, next) => {
-  const { fullName, username, password, confirmPassword, gender } = req.body;
+  const { fullName, username, password, gender } = req.body;
 
   const user = await User.findOne({ username });
   if (user) {

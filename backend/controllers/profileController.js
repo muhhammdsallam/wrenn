@@ -5,6 +5,7 @@ import path from 'path';
 import {
   uploadProfilePicture,
   signProfilePictureFile,
+  deleteProfilePicture,
 } from '../repositories/imageS3bucketRepo.js';
 
 // getMyProfile method
@@ -57,8 +58,8 @@ export const uploadProfilePic = async (req, res) => {
   const userId = req.user._id;
 
   // process image first
-  const fileExt = path.extname(req.file.originalname);
-  const keyName = `photos/${userId}${fileExt}`;
+  // const fileExt = path.extname(req.file.originalname);
+  const keyName = `photos/${userId}.jpg`;
 
   const response = await uploadProfilePicture(keyName, req.file.buffer);
 
@@ -76,5 +77,31 @@ export const uploadProfilePic = async (req, res) => {
   return res.status(200).json({
     profile: updatedUser,
     signedProfilePic: url,
+  });
+};
+
+export const deleteProfilePic = async (req, res) => {
+  const userId = req.user._id;
+
+  const keyName = `photos/${userId}.jpg`;
+
+  const response = await deleteProfilePicture(keyName);
+
+  console.log(response);
+
+  const filter = { _id: userId };
+  const update = {
+    profilePic:
+      req.user.gender === 'male'
+        ? process.env.BOY_PIC.concat(req.user.username)
+        : process.env.GIRL_PIC.concat(req.user.username),
+  };
+
+  const updatedUser = await User.findOneAndUpdate(filter, update, {
+    new: true,
+  }).select('-password');
+
+  return res.status(200).json({
+    profile: updatedUser,
   });
 };
